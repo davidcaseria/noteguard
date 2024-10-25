@@ -16,7 +16,7 @@ impl NoteFilter for Kinds {
             .messages
             .as_ref()
             .and_then(|msgs| msgs.get(&kind.to_string()).cloned())
-            .unwrap_or_else(|| "blocked: note kind is not allowed here".to_string());
+            .unwrap_or_else(|| format!("Note kind {} is not allowed.", kind));
         if let Some(allowed_kinds) = &self.allowed_kinds {
             if !allowed_kinds.contains(&kind) {
                 return OutputMessage::new(input.event.id.clone(), Action::Reject, Some(msg));
